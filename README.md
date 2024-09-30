@@ -51,3 +51,28 @@ Por último, instalar Docker y comprobar su funcionamiento:
   sudo apt install docker-ce
   sudo systemctl status docker
 ```
+
+### Pasos para Construir y Ejecutar el Proyecto
+1. **Crear carpetas**
+
+   Crear una carpeta `input` y `ouput`
+   ```bash
+      mkdir input
+      mkdir output
+   ```
+   
+3. **Crear un archivo de `entrada.csv`**
+
+   Crear un archivo llamado `entrada.csv` dentro de la carpeta `input` con el siguiente formato como ejemplo:
+    ```csv
+        dia,valor_uf
+        2024-01-01,29000
+        2024-01-02,29100
+        2024-01-03,29200
+     ```
+    
+5. **Crear el Script de Python `procesar_uf.py`**
+
+   Este script leerá el archivo `entrada.csv`, generará un gráfico de líneas y lo guardará en una carpeta de salida. Además, registrará los datos procesados y manejará errores.
+
+
