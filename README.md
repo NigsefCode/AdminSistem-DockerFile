@@ -61,7 +61,7 @@ Por último, instalar Docker y comprobar su funcionamiento:
       mkdir output
    ```
    
-3. **Crear un archivo de `entrada.csv`**
+2. **Crear un archivo de `entrada.csv`**
 
    Crear un archivo llamado `entrada.csv` dentro de la carpeta `input` con el siguiente formato como ejemplo:
     ```csv
@@ -70,9 +70,57 @@ Por último, instalar Docker y comprobar su funcionamiento:
         2024-01-02,29100
         2024-01-03,29200
      ```
+   Este archivo contiene los datos de la UF, con dos columnas: `dia` (fecha en formato `yyyy-mm-dd`) y `valor_uf` (valor numérico de la UF). Usted puede cambiar los valores a su gusto, pero debe respetar el formato.
     
-5. **Crear el Script de Python `procesar_uf.py`**
+3. **Crear el Script de Python `procesar_uf.py`**
 
-   Este script leerá el archivo `entrada.csv`, generará un gráfico de líneas y lo guardará en una carpeta de salida. Además, registrará los datos procesados y manejará errores.
+   Este script leerá el archivo `entrada.csv`, generará un gráfico de líneas y lo guardará en una carpeta de salida. Además, registrará los datos procesados y manejará errores. Es el Script principal que procesa los datos y genera el gráfico se encuentra en el repositorio que puede copiar.
+
+4. **Crear un archivo de `error.log`**
+
+   Se crea un archivo de registro de errores que son ocurridos durante la ejecución del script. Cabe mencionar que este archivo lo creará el Script `procesar_uf.py` y se almacenará en `output`.
+
+5. **Crear el archivo Dockerfile**
+
+   El archvivo Dockerfile está configurado para construir una imagen que incluye:
+   - Python 3.x
+   - Librerías de `matplotlib` y `pandas`
+   - El Script `procesar_uf.py` para procesar el archivo de entrada y generar gráficos.
+
+   En el repositorio se encuentra el archivo Dockerfile que puede copiar y pegar como ejemplo.
+
+6. **Contrucción y Ejecución de la Imagen y Contenedor Docker**
+
+   Antes de ejecutar el Script se debe construir la imagen Docker con el siguiente comando:
+   ```bash
+     docker build -t nombre_imagen .
+   ```
+   Con esto se creará una imagen Docker. Usted puede colocar el nombre que desea en `nombre_imagen`.
+
+   Posteriormente, para ejecturar el contenedor y procesar los datos, se utiliza el siguiente comando:
+   ```bash
+     docker run --rm -v $(pwd)/input:/app/input -v $(pwd)/output:/app/output nombre_imagen
+   ```
+   En este proceso se ejecutará y guardará el gráfico en `output`.
+
+### Manejo de Errores
+El Script está preparado para manejar errores como:
+- **Archivo no encontrado:**  Si el archivo `entrada.csv`  no está presente en la carpeta input, se generará un archivo error.log en la carpeta `output` con el mensaje correspondiente.
+- **Archivo CSV vacío o nulo:** Si el archivo de entrada está vacío o errores en las columnas de `dia` o `valor_uf` , también se registrará en el archivo `error.log`.
+
+### Notas Adicionales
+- Asegurar que las carpetas `input` y `output` tengan los permisos adecuados. En caso de no saber como hacer eso, se puede ejecutar el siguiente comando:
+  
+   ```bash
+     sudo chmod 777 output input
+   ```
+- Asegurar que los nombres estén bien escritos y todo esté en su carpeta correspondiente:
+  - **Dockerfile**
+  - **input/**
+    - **entrada.csv**
+  - **output/**
+    - **error_log**
+  - **procesar_uf.py**
+   
 
 
