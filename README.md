@@ -88,8 +88,40 @@ Por último, instalar Docker y comprobar su funcionamiento:
    - El Script `procesar_uf.py` para procesar el archivo de entrada y generar gráficos.
 
    En el repositorio se encuentra el archivo Dockerfile que puede copiar y pegar como ejemplo.
+   En este ejemplo se utiliza un contenedor Docker para ejecutar un script de Python que procesa datos usando las bibliotecas `matplotlib` y `pandas`. El archivo Dockerfile define la configuración necesaria para crear la imagen del contenedor.
 
-6. **Contrucción y Ejecución de la Imagen y Contenedor Docker**
+   En la imagen base se utiliza el comando que usa una imagen oficial y liviana de Python 3.9 como base. La versión "slim" es más compacta y optimizada para un entorno mínimo:
+   ```bash
+     FROM python:3.9-slim
+   ```
+
+   Aquí se establece el directorio `/app` dentro del contenedor como el lugar donde se realizarán todas las operaciones:
+   ```bash
+     WORKDIR /app
+   ```
+
+   Este comando copia el script `procesar_uf.py` desde tu máquina local al directorio de trabajo `/app` del contenedor:
+   ```bash
+     COPY procesar_uf.py .
+   ```
+
+   Aquí se instalan las bibliotecas de Python necesarias de `matplotlib` y `pandas`:
+   ```bash
+     RUN pip install matplotlib pandas
+   ```
+
+   En este paso se copia el archivo de datos `entrada.csv` desde el directorio local `input` a la misma ruta en el contenedor.
+   ```bash
+     COPY input/entrada.csv input/entrada.csv
+   ```
+
+   Finalmente, el contenedor está configurado para ejecutar el script `procesar_uf.py`:
+   ```bash
+     CMD ["python", "procesar_uf.py"]
+   ```
+   
+
+7. **Contrucción y Ejecución de la Imagen y Contenedor Docker**
 
    Antes de ejecutar el Script se debe construir la imagen Docker con el siguiente comando:
    ```bash
