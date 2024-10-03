@@ -82,7 +82,7 @@ Por último, instalar Docker y comprobar su funcionamiento:
 
 5. **Crear el archivo Dockerfile**
 
-   El archvivo Dockerfile está configurado para construir una imagen que incluye:
+   El archivo Dockerfile está configurado para construir una imagen que incluye:
    - Python 3.x
    - Librerías de `matplotlib` y `pandas`
    - El Script `procesar_uf.py` para procesar el archivo de entrada y generar gráficos.
@@ -106,7 +106,7 @@ Por último, instalar Docker y comprobar su funcionamiento:
 ### Manejo de Errores
 El Script está preparado para manejar errores como:
 - **Archivo no encontrado:**  Si el archivo `entrada.csv`  no está presente en la carpeta input, se generará un archivo error.log en la carpeta `output` con el mensaje correspondiente.
-- **Archivo CSV vacío o nulo:** Si el archivo de entrada está vacío o errores en las columnas de `dia` o `valor_uf` , también se registrará en el archivo `error.log`.
+- **Archivo CSV vacío o mal formato:** Si el archivo de entrada está vacío o errores en las columnas de `dia` o `valor_uf` , también se registrará en el archivo `error.log`.
 
 ### Notas Adicionales
 - Asegurar que las carpetas `input` y `output` tengan los permisos adecuados. En caso de no saber como hacer eso, se puede ejecutar el siguiente comando:
